@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { checkGuess } from '../../game-helpers/';
 
-function GuessInput({
-    handleSubmitGuess,
-    hasPlayerWon,
-    guessArr,
-    setHasPlayerWon,
-    answer,
-}) {
+function GuessInput({ handleSubmitGuess, guessArr, answer }) {
     const [input, setInput] = useState('');
+    const [hasPlayerWon, setHasPlayerWon] = useState(false);
     function isCorrect(letter) {
         return letter.status === 'correct';
     }
