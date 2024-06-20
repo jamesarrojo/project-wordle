@@ -17,8 +17,10 @@ function GuessInput() {
                 id="guess-input"
                 type="text"
                 value={input}
-                pattern="\b[a-zA-Z]{5}\b"
+                pattern="\b[A-Z]{5}\b"
+                minLength={5}
                 maxLength={5}
+                required={true}
                 onChange={(e) => setInput(e.target.value.toUpperCase())}
             />
         </form>
