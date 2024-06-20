@@ -1,7 +1,17 @@
 import { useState } from 'react';
+import { checkGuess } from '../../game-helpers/';
 
-function GuessInput({ handleSubmitGuess }) {
+function GuessInput({
+    handleSubmitGuess,
+    hasPlayerWon,
+    guessArr,
+    setHasPlayerWon,
+    answer,
+}) {
     const [input, setInput] = useState('');
+    function isCorrect(letter) {
+        return letter.status === 'correct';
+    }
 
     return (
         <form
@@ -10,22 +20,43 @@ function GuessInput({ handleSubmitGuess }) {
                 e.preventDefault();
                 handleSubmitGuess(input);
                 console.log({ guess: input });
+                setHasPlayerWon(checkGuess(input, answer).every(isCorrect));
                 setInput('');
             }}
         >
             <label htmlFor="guess-input">Enter guess:</label>
-            <input
-                autoFocus={true}
-                id="guess-input"
-                type="text"
-                value={input}
-                pattern="\b[A-Z]{5}\b"
-                minLength={5}
-                maxLength={5}
-                required={true}
-                title="5 letter word"
-                onChange={(e) => setInput(e.target.value.toUpperCase())}
-            />
+            {guessArr.length === 6 && !hasPlayerWon ? (
+                <section className="sad banner">
+                    <p>
+                        Sorry, the correct answer is <strong>{answer}</strong>.
+                    </p>
+                </section>
+            ) : hasPlayerWon ? (
+                <section className="happy banner">
+                    <p>
+                        <strong>Congratulations!</strong> Got it in
+                        <strong>
+                            {' '}
+                            {guessArr.length}{' '}
+                            {guessArr.length > 1 ? 'guesses' : 'guess'}
+                        </strong>
+                        .
+                    </p>
+                </section>
+            ) : (
+                <input
+                    autoFocus={true}
+                    id="guess-input"
+                    type="text"
+                    value={input}
+                    pattern="\b[A-Z]{5}\b"
+                    minLength={5}
+                    maxLength={5}
+                    required={true}
+                    title="5 letter word"
+                    onChange={(e) => setInput(e.target.value.toUpperCase())}
+                />
+            )}
         </form>
     );
 }

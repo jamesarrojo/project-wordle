@@ -12,6 +12,7 @@ console.info({ answer });
 
 function Game() {
     const [guessArr, setGuessArr] = useState([]);
+    const [hasPlayerWon, setHasPlayerWon] = useState(false);
     console.log({ guessArr });
     function handleSubmitGuess(word) {
         if (guessArr.length >= NUM_OF_GUESSES_ALLOWED) return;
@@ -21,7 +22,13 @@ function Game() {
     return (
         <>
             <GuessResults guessArr={guessArr} answer={answer} />
-            <GuessInput handleSubmitGuess={handleSubmitGuess} />
+            <GuessInput
+                handleSubmitGuess={handleSubmitGuess}
+                hasPlayerWon={hasPlayerWon}
+                guessArr={guessArr}
+                setHasPlayerWon={setHasPlayerWon}
+                answer={answer}
+            />
         </>
     );
 }
