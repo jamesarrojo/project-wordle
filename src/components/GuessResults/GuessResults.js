@@ -1,16 +1,19 @@
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { range } from '../../utils';
+import { checkGuess } from '../../game-helpers/';
 
-function GuessResults({ guessArr }) {
+function GuessResults({ guessArr, answer }) {
     return (
         <section className="guess-results">
             {guessArr.map(({ word, id }) => (
                 <p className="guess" key={id}>
-                    {word.split('').map((char, index) => (
-                        <span className="cell" key={index}>
-                            {char}
-                        </span>
-                    ))}
+                    {checkGuess(word, answer).map(
+                        ({ letter, status }, index) => (
+                            <span className={`cell ${status}`} key={index}>
+                                {letter}
+                            </span>
+                        )
+                    )}
                 </p>
             ))}
             {range(NUM_OF_GUESSES_ALLOWED - guessArr.length).map((el, i) => (

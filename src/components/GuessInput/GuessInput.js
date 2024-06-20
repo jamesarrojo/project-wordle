@@ -15,6 +15,7 @@ function GuessInput({ handleSubmitGuess }) {
         >
             <label htmlFor="guess-input">Enter guess:</label>
             <input
+                autoFocus={true}
                 id="guess-input"
                 type="text"
                 value={input}
