@@ -22,6 +22,7 @@ function GuessInput({ handleSubmitGuess }) {
                 minLength={5}
                 maxLength={5}
                 required={true}
+                title="5 letter word"
                 onChange={(e) => setInput(e.target.value.toUpperCase())}
             />
         </form>
